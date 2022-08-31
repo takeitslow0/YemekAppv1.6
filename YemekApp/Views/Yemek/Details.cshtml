@@ -1,0 +1,20 @@
+﻿@using Business.Models
+@model YemekTarifiModel
+
+@{
+    ViewData["Title"] = "Yemek Tarifi Detay";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_Details" model="Model" />
+
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>
+
+        @:&nbsp;|&nbsp;
+    }
+    <a asp-action="Index">Yemek Tarifi Listesi</a>
+</div>

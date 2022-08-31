@@ -1,0 +1,56 @@
+﻿@using Business.Models
+@model MalzemeModel
+
+@{
+    ViewData["Title"] = "Malzeme Düzenle";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (ViewBag.Error != null)
+{
+    <p class="text-danger">
+        @ViewBag.Error
+    </p>
+}
+
+<h4>Malzeme</h4>
+<hr />
+<div class="row">
+    <div class="col-12">
+
+        @using (Html.BeginForm())
+
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+            <div class="row mb-3">
+
+                @Html.LabelFor(model => model.Adi, new { @class="col-2 col-form-label" })
+
+                <div class="col-5">
+
+                    @Html.TextBoxFor(model => model.Adi, new { @class = "form-control", placeholder = "Malzeme adı giriniz..." })
+
+                    @Html.ValidationMessageFor(model => model.Adi, null, new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="row mb-3">
+                <div class="offset-2 col-5">
+                    <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    &nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-primary">Temizle</button>
+                    &nbsp;&nbsp;
+                    @Html.ActionLink("Malzeme Listesi", "Index")
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

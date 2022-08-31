@@ -1,0 +1,80 @@
+﻿@using Business.Models
+@model IEnumerable<KullaniciModel>
+
+@{
+    ViewData["Title"] = "Kullanıcı Listesi";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create"> Yeni Kullanıcı</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RolAdiDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KullaniciAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KullaniciDetayi.Eposta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AktifDisplay)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RolAdiDisplay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KullaniciAdi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KullaniciDetayi.Eposta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AktifDisplay)
+                    </td>
+                    <td style="text-align: right;">
+                        <a asp-action="Details" asp-route-id="@item.Id"> Detay</a>&nbsp;|&nbsp;
+                        <a asp-action="Edit" asp-route-id="@item.Id"> Düzenle</a>&nbsp;|&nbsp;
+                        @*<a asp-action="Delete" asp-route-id="@item.Id"> Sil</a>*@
+                        <a href="#" onclick="kullaniciSil(@item.Id);"><i class="fas fa-lg fa-trash"></i> Sil</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <link href="~/lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <script src="~/lib/AlertifyJS/alertify.min.js"></script>
+
+    <script>
+        function kullaniciSil(id) {
+            alertify.confirm("Uyarı!",
+                "Bu kullanıcıyı silmek istediğinize emin misiniz?",
+                function () { // OK
+                    //alertify.success("Silme başarılı.");
+                    window.location.href = "/Kullanicilar/Delete/" + id;
+                },
+                function () { // Cancel
+                    //alertify.error("Silme iptal edildi.");
+                }
+            ).set('labels', { ok: 'Evet', cancel: 'Hayır' });
+        }
+    </script>
+}

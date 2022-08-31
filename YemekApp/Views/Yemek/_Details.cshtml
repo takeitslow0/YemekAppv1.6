@@ -1,0 +1,28 @@
+﻿@using Business.Models
+@model YemekTarifiModel
+
+<div>
+    <h4>Yemek Tarifi</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Adi)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Adi)
+        </dd>
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.Tarif)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.Tarif)
+        </dd>
+
+        <dt class="col-2">
+            @Html.DisplayNameFor(model => model.MalzemeAdiDisplay)
+        </dt>
+        <dd class="col-10">
+            @Html.DisplayFor(model => model.MalzemeAdiDisplay)
+        </dd>
+    </dl>
+</div>

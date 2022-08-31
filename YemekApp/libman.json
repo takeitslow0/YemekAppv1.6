@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "cdnjs",
+      "library": "jquery-ajax-unobtrusive@3.2.6",
+      "destination": "wwwroot/lib/jquery-ajax-unobtrusive/"
+    }
+  ,
+{
+  "provider": "cdnjs",
+  "library": "AlertifyJS@1.13.1",
+  "destination": "wwwroot/lib/AlertifyJS/"
+}
+,
+{
+  "provider": "cdnjs",
+  "library": "font-awesome@6.2.0",
+  "destination": "wwwroot/lib/font-awesome/"
+}
+,
+{
+  "provider": "cdnjs",
+  "library": "select2@4.0.13",
+  "destination": "wwwroot/select2/"
+}
+,
+{
+  "provider": "cdnjs",
+  "library": "bootstrap-datepicker@1.9.0",
+  "destination": "wwwroot/lib/bootstrap-datepicker/"
+}
+,
+{
+  "provider": "cdnjs",
+  "library": "datatables@1.10.21",
+  "destination": "wwwroot/datatables/"
+}
+]
+}

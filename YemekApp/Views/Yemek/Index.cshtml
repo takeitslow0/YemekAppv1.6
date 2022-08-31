@@ -1,0 +1,90 @@
+﻿@using Business.Models
+@model IEnumerable<YemekTarifiModel>
+
+@{
+    ViewData["Title"] = "Tarif Listesi";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a asp-action="Create"><i class="fas fa-plus"></i> Yeni Yemek Tarifi</a>
+    }
+</p>
+
+@if (TempData["Success"] != null)
+{
+    <p class="text-success">@TempData["Success"]</p>
+}
+
+<table id="urunler" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MalzemeAdiDisplay)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Adi)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Adi)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MalzemeAdiDisplay)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tarif)
+                    </td>
+
+
+
+                    <td style="text-align: right;">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-lg fa-info-circle"></i> Detay</a>
+                            if (User.IsInRole("Admin"))
+                            {
+                                @:&nbsp;
+                                <text>|&nbsp;</text>
+
+                                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-lg fa-pen-square"></i> Düzenle</a>
+                                @:&nbsp;|&nbsp;
+                                <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-lg fa-trash"></i> Sil</a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts
+    {
+    @* https://datatables.net/ *@
+    <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(function () {
+            $('#tarifler').DataTable({
+                language: {
+                    url: "/json/datatablesTurkish.json"
+                }
+            });
+        });
+    </script>
+}

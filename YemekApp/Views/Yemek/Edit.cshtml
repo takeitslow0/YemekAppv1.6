@@ -1,0 +1,78 @@
+﻿@using Business.Models
+@model YemekTarifiModel
+
+@{
+    ViewData["Title"] = "Tarifi Düzenle";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Yemek Tarifleri</h4>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <form asp-action="Edit" autocomplete="off" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row mb-3">
+                <label asp-for="Adi" class="col-2 col-form-label"></label>
+                <div class="col-5">
+                    <input asp-for="Adi" class="form-control" />
+                    <span asp-validation-for="Adi" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Tarif" class="col-2 col-form-label"></label>
+                <div class="col-5">
+
+                    <textarea asp-for="Tarif" class="form-control" rows="3"></textarea>
+
+                    <span asp-validation-for="Tarif" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="MalzemeId" class="col-2 col-form-label"></label>
+                <div class="col-5">
+
+                    @Html.DropDownListFor(model => model.MalzemeId, ViewBag.MalzemeId as SelectList, "-- Seçiniz --", new { @class = "form-control malzemeler" })
+
+                    <span asp-validation-for="MalzemeId" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row mb-3">
+                <div class="offset-2 col-5">
+                    <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    &nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-primary">Temizle</button>
+                    &nbsp;&nbsp;
+                    <a asp-action="Index">Tarif Listesi</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+
+    @*https://uxsolutions.github.io/bootstrap-datepicker*@
+    <link rel="stylesheet" href="/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+    <script src="/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.tr.min.js"></script>
+
+    @* https://select2.org/ *@
+    <link rel="stylesheet" href="/lib/select2/css/select2.min.css" />
+    <script src="/lib/select2/js/select2.min.js"></script>
+    <script src="/lib/select2/js/i18n/tr.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".malzemeler").select2();
+        });
+    </script>
+}

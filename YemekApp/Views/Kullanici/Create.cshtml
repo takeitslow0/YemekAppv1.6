@@ -1,0 +1,48 @@
+﻿@using Business.Models
+@model KullaniciModel
+
+@{
+    ViewData["Title"] = "Yeni Kullanıcı";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_CreateEdit" model="Model" />
+
+@section Scripts
+    {
+    <script src="/lib/jquery-ajax-unobstrusive/jquery.unobstrusive-ajax.min.js"></script>
+
+    <script>
+        $(function () {
+            $("#ulkeler").off("change");
+            $("#ulkeler").change(function () {
+                $("#sehirler").empty();
+                $("#ulkelermesaj").text("");
+                var seciliUlkeId = $("#ulkeler").val();
+                if (seciliUlkeId === "") {
+                    $("#ulkelermesaj").text("Lütfen ülke seçiniz...");
+                    $("#sehirler").append('<option value="">-- Ülke Seçiniz --</option>');
+                } else {
+                    $.ajax({
+                        cache: false,
+                        dataType: "json",
+                        // POST isteği:
+                        url: "/SehirlerAjax/SehirlerPost",
+                        type: "post",
+                        data: { ulkeId: seciliUlkeId },
+                        success: function (sehirler) {
+                            $("#sehirler").append('<option value="">-- Şehir Seçiniz --</option>');
+                            for (var i = 0; i < sehirler.length; i++) {
+                                $("#sehirler").append('<option value="' + sehirler[i].id + '">' + sehirler[i].adi + '</option>');
+                            }
+                        },
+                        error: function () {
+                            alert("AJAX isteği sonucunda hata meydana geldi!");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
